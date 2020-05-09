@@ -4,7 +4,7 @@ module Enumerable
   def my_each
     array_enum = is_a?(Range) ? to_a : self
     i = 0
-    while i < array_enum.length
+    while i < array_enum.size
       yield(array_enum[i]) if block_given?
       i += 1
     end
@@ -14,7 +14,7 @@ module Enumerable
   def my_each_with_index
     array_enum = is_a?(Range) ? to_a : self
     i = 0
-    while i < array_enum.length
+    while i < array_enum.size
       yield(array_enum[i], i) if block_given?
       i += 1
     end
@@ -117,13 +117,13 @@ module Enumerable
     array_enum = is_a?(Range) ? to_a : self
     value = 0
     if array_enum[0].is_a?(Integer)
-      if args.length == 2 && !block_given?
+      if args.size == 2 && !block_given?
         op = args[1].to_s
         value = args[0].to_i
         array_enum.my_each do |item|
           value = value.to_i.send(op, item)
         end
-      elsif args.length == 1 && !block_given?
+      elsif args.size == 1 && !block_given?
         op = args[0].to_s
         case op
         when '*'
@@ -134,12 +134,12 @@ module Enumerable
         array_enum.my_each do |item|
           value = value.to_i.send(op, item)
         end
-      elsif args.length == 1 && block_given?
+      elsif args.size == 1 && block_given?
         value = args[0].to_i
         array_enum.my_each do |item|
           value = yield(value, item)
         end
-      elsif args.length.zero? && block_given?
+      elsif args.size.zero? && block_given?
         array_enum.my_each do |item|
           value = yield(value, item)
         end
