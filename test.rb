@@ -1,4 +1,7 @@
+# CyclomaticComplexity Bug
+# rubocop:disable Style/BlockComments
 =begin
+
 require './enumerable.rb'
 
 test_array1 = [11, 2, 3, 56]
@@ -70,11 +73,7 @@ p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
 p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
 
 p %w[ant bear cat].my_any?(/d/) #=> false
-
-
 p [nil, true, 99].my_any?(Integer) #=> true
-
-
 p [nil, true, 99].my_any? #=> true
 p [].my_any? #=> false
 
@@ -159,3 +158,5 @@ end
 p multiply_els([2, 4, 5])
 
 =end
+
+# rubocop:enable Style/BlockComments
