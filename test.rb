@@ -22,3 +22,11 @@ block = proc { |num| my_each_output += num.to_s }
 array.my_each(&block)
 
 p my_each_output
+
+# my_each_with_index
+
+p 'my_each-with_index'
+
+test_array1.my_each_with_index { |x, y| p "item: #{x}, index: #{y}" }
+
+p test_array2.my_each_with_index
