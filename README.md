@@ -24,7 +24,7 @@ To use it locally, you need to :
 3. Clone the repository to your local machine.
 3. Uncomment test.rb file.
 4. In your terminal: navigate to the test.rb.
-5. tape: ruby test.rb
+5. type: ruby test.rb
 
 # Authors
 
