@@ -1,4 +1,6 @@
+=begin
 require './enumerable.rb'
+
 test_array1 = [11, 2, 3, 56]
 
 test_array2 = %w[a b c d]
@@ -37,7 +39,7 @@ p test_array2.my_each_with_index
 
 p 'my_select'
 p test_array1.my_select(&:even?)
- p test_array2.my_select() { |x| x == 'c' }
+p test_array2.my_select { |x| x == 'c' }
 p test_array2.my_select
 
 # my_all?
@@ -121,6 +123,39 @@ arr = [1, 2, 7, 4, 5]
 
 p arr.my_map { |x| x * x }
 p (1..2).my_map { |x| x * x }
-myMapP = proc { |x| x * x }
 
-p arr.my_map(myMapP)
+# # my_map block
+p arr.my_map { |x| x * x }
+
+# # my_map proc
+myMapP = Proc.new { |x| x * x }
+p arr.my_map (myMapP)
+
+# # my_map proc and block
+myMapP = Proc.new { |x| x * 2 }
+p arr.my_map (myMapP) { |x| x * x}
+
+# my_inject
+p 'my_inject'
+
+# Sum some numbers
+p (5..10).my_inject(:+) #=> 45
+# Same using a block and inject
+p (5..10).my_inject { |sum, n| sum + n } #=> 45
+# Multiply some numbers
+p (5..10).my_inject(1, :*) #=> 151200
+# Same using a block
+p (5..10).my_inject(1) { |product, n| product * n } #=> 151200
+
+search = proc { |memo, word| memo.length > word.length ? memo : word }
+p ['hello','strong','am'].my_inject(&search) # => "strong"
+
+# multiply_els
+
+def multiply_els(arg)
+  arg.my_inject(1, :*)
+end
+
+p multiply_els([2, 4, 5])
+
+=end
