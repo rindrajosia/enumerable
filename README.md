@@ -23,7 +23,7 @@ To use it locally, you need to :
 2. Choose a local folder for the cloned files.
 3. Clone the repository to your local machine.
 3. Uncomment test.rb file.
-4. In your terminal: navigate to the test.rb.
+4. In your terminal: navigate to test.rb.
 5. type: ruby test.rb
 
 # Authors
