@@ -37,7 +37,7 @@ p test_array2.my_each_with_index
 
 p 'my_select'
 p test_array1.my_select(&:even?)
-# p test_array2.my_select() { |x| x == 'c' }
+ p test_array2.my_select() { |x| x == 'c' }
 p test_array2.my_select
 
 # my_all?
@@ -48,6 +48,7 @@ p (%w[ant bear cat]).my_all? { |word| word.length >= 3 } #=> true
 
 p (%w[ant bear cat]).my_all? { |word| word.length >= 4 } #=> false
 
+p %w[ant bear cat].my_all?(/t/)
 
 p [1, 2].my_all?(Numeric) # true
 
@@ -58,3 +59,68 @@ p [1, 2].my_all?(1) # false
 p [1, 1].my_all?(1) # true
 
 p "======================="
+
+# my_any?
+p 'my_any?'
+
+p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
+
+p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
+
+p %w[ant bear cat].my_any?(/d/) #=> false
+
+
+p [nil, true, 99].my_any?(Integer) #=> true
+
+
+p [nil, true, 99].my_any? #=> true
+p [].my_any? #=> false
+
+p [1, 2, 3, 's'].my_any?(String) #=> true
+
+p [1, 2, 3, 's'].my_any?(Numeric) #=> true
+
+p [1, 2, 3].my_any?(String) #=> false
+
+p [1, 2].my_any?(1) # true
+p [1, 1].my_any?(1) # true
+
+# my_none?
+
+p 'my_none?'
+
+p %w[ant bear cat].my_none?(/d/) #=> true
+
+p %w[ant bear cat].my_none? { |word| word.length == 5 } #=> true
+p %w[ant bear cat].my_none? { |word| word.length >= 4 } #=> false
+p [1, 3.14, 42].my_none?(Float) #=> false
+
+p [].my_none? #=> true
+p [nil].my_none? #=> true
+p [nil, false].my_none? #=> true
+p [nil, false, true].my_none? #=> false
+p [1, 2, 3].my_none?(1) #=> false
+p [1, 2, 3].my_none?(4) #=> true
+p [nil, false, nil, false].my_none? # true
+
+# my_count
+
+p 'my_count'
+
+ary = [1, 2, 4, 2]
+p ary.my_count #=> 4
+p ary.my_count(9) #=> 0
+p ary.my_count(2) #=> 2
+p ary.my_count(&:even?) #=> 3
+
+# # my_map
+
+p 'my_map'
+
+arr = [1, 2, 7, 4, 5]
+
+p arr.my_map { |x| x * x }
+p (1..2).my_map { |x| x * x }
+myMapP = proc { |x| x * x }
+
+p arr.my_map(myMapP)
