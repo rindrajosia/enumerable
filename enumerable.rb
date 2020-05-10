@@ -3,35 +3,46 @@
 module Enumerable
   def my_each
     array_enum = is_a?(Range) ? to_a : self
+    result = ''
     i = 0
-    while i < array_enum.size
-      yield(array_enum[i]) if block_given?
-      i += 1
+    if block_given?
+      while i < array_enum.size
+        yield(array_enum[i])
+        i += 1
+      end
+    else
+      result = 'Enum'
     end
-    array_enum
+    result.empty? ? array_enum : result
   end
 
   def my_each_with_index
     array_enum = is_a?(Range) ? to_a : self
     i = 0
-    while i < array_enum.size
-      yield(array_enum[i], i) if block_given?
-      i += 1
+    result = ''
+    if block_given?
+      while i < array_enum.size
+        yield(array_enum[i], i)
+        i += 1
+      end
+    else
+      result = 'Enum'
     end
-    array_enum
+    result.empty? ? array_enum : result
   end
 
   def my_select
     array_enum = is_a?(Range) ? to_a : self
     res_array = []
+    result = ''
     if block_given?
       array_enum.my_each do |item|
         res_array << item if yield(item)
       end
     else
-      res_array = array_enum
+      result = 'Enum'
     end
-    res_array
+    result.empty? ? res_array : result
   end
 
   def my_all?(*args, &block)
