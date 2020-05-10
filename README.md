@@ -1,7 +1,7 @@
 # ENUMERABLE
 Enumerable Methods
 
-In this project, you have implemented my own version of Ruby’s enumerable methods.
+In this project, I have implemented my own version of Ruby’s enumerable methods.
 There are two (02) files in this project:
 enumerable.rb : list of my enumerable methods.
 test.rb: file test for enumerable methods
