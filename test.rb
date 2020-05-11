@@ -1,11 +1,17 @@
 # CyclomaticComplexity Bug
 # rubocop:disable Style/BlockComments
-=begin
+
 require './enumerable.rb'
 
 test_array1 = [11, 2, 3, 56]
 
 test_array2 = %w[a b c d]
+
+true_array = [1, true, 'hi', []]
+
+false_array = [nil, false, nil, false]
+
+words = %w[dog door rod blade]
 
 # my_each
 
@@ -62,6 +68,10 @@ p [1, 2].my_all?(1) # false
 
 p [1, 1].my_all?(1) # true
 
+p true_array.my_all? #true
+
+p words.my_all?(/d/) #true
+
 p "======================="
 
 # my_any?
@@ -85,6 +95,12 @@ p [1, 2, 3].my_any?(String) #=> false
 p [1, 2].my_any?(1) # true
 p [1, 1].my_any?(1) # true
 
+p false_array.my_any? #false
+
+p words.my_any?(/d/) #true
+
+p "======================="
+
 # my_none?
 
 p 'my_none?'
@@ -102,6 +118,8 @@ p [nil, false, true].my_none? #=> false
 p [1, 2, 3].my_none?(1) #=> false
 p [1, 2, 3].my_none?(4) #=> true
 p [nil, false, nil, false].my_none? # true
+
+p words.my_none?(/d/) #false
 
 # my_count
 
@@ -133,6 +151,8 @@ p arr.my_map (myMapP)
 myMapP = Proc.new { |x| x * 2 }
 p arr.my_map (myMapP) { |x| x * x}
 
+p array.my_map
+
 # my_inject
 p 'my_inject'
 
@@ -156,5 +176,5 @@ end
 
 p multiply_els([2, 4, 5])
 
-=end
+
 # rubocop:enable Style/BlockComments

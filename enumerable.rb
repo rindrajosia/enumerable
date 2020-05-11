@@ -11,9 +11,9 @@ module Enumerable
         i += 1
       end
     else
-      result = 'Enum'
+      result = array_enum.to_enum
     end
-    result.empty? ? array_enum : result
+    !result.is_a?(Enumerator) ? array_enum : result
   end
 
   def my_each_with_index
@@ -26,9 +26,9 @@ module Enumerable
         i += 1
       end
     else
-      result = 'Enum'
+      result = array_enum.to_enum :each_with_index
     end
-    result.empty? ? array_enum : result
+    !result.is_a?(Enumerator) ? array_enum : result
   end
 
   def my_select
@@ -40,9 +40,9 @@ module Enumerable
         res_array << item if yield(item)
       end
     else
-      result = 'Enum'
+      result = array_enum.to_enum :select
     end
-    result.empty? ? res_array : result
+    !result.is_a?(Enumerator) ? array_enum : result
   end
 
   def my_all?(*args, &block)
@@ -53,11 +53,16 @@ module Enumerable
     elsif !args[0].nil? && args[0].class == Class
       array_enum.my_each { |item| flag = false unless item.is_a?(args[0]) }
     elsif !args[0].nil?
-      array_enum.my_each { |item| flag = false unless item == args[0] }
+      if args[0].is_a?(Regexp)
+        string_regex = array_enum.join(' ')
+        flag = false unless string_regex =~ args[0]
+      else
+        array_enum.my_each { |item| flag = false unless item == args[0] }
+      end
     elsif !block.nil?
       array_enum.my_each { |item| flag = false unless block.call(item) }
     else
-      flag = false
+      array_enum.my_each { |item| flag = false unless item }
     end
     flag
   end
@@ -70,11 +75,16 @@ module Enumerable
     elsif !args[0].nil? && args[0].class == Class
       array_enum.my_each { |item| flag = true if item.is_a?(args[0]) }
     elsif !args[0].nil?
-      array_enum.my_each { |item| flag = true if item == args[0] }
+      if args[0].is_a?(Regexp)
+        string_regex = array_enum.join(' ')
+        flag = true if string_regex =~ args[0]
+      else
+        array_enum.my_each { |item| flag = true if item == args[0] }
+      end
     elsif !block.nil?
       array_enum.my_each { |item| flag = true if block.call(item) }
     else
-      flag = true
+      array_enum.my_each { |item| flag = true if item }
     end
     flag
   end
@@ -87,7 +97,12 @@ module Enumerable
     elsif !args[0].nil? && args[0].class == Class
       array_enum.my_each { |item| flag = false if item.is_a?(args[0]) }
     elsif !args[0].nil?
-      array_enum.my_each { |item| flag = false if item == args[0] }
+      if args[0].is_a?(Regexp)
+        string_regex = array_enum.join(' ')
+        flag = false if string_regex =~ args[0]
+      else
+        array_enum.my_each { |item| flag = false if item == args[0] }
+      end
     elsif !block.nil?
       array_enum.my_each { |item| flag = false if block.call(item) }
     else
@@ -116,12 +131,14 @@ module Enumerable
       array_enum.my_each do |item|
         res_array << proc_map.call(item)
       end
-    else
+    elsif block_given?
       array_enum.my_each do |item|
         res_array << yield(item)
       end
+    else
+      result = array_enum.to_enum :map
     end
-    res_array
+    !result.is_a?(Enumerator) ? res_array : result
   end
 
   def my_inject(*args, &proc)
