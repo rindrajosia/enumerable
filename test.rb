@@ -1,6 +1,6 @@
 # CyclomaticComplexity Bug
 # rubocop:disable Style/BlockComments
-
+=begin
 require './enumerable.rb'
 
 test_array1 = [11, 2, 3, 56]
@@ -183,5 +183,5 @@ end
 
 p multiply_els([2, 4, 5])
 
-
+=end
 # rubocop:enable Style/BlockComments
