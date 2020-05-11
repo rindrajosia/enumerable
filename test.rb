@@ -48,6 +48,9 @@ p test_array2.my_each_with_index
 p 'my_select'
 p test_array1.my_select(&:even?)
 p test_array2.my_select { |x| x == 'c' }
+p [1,2,3,4,5].my_select { |num| num.even? } #should return [2, 4]
+p [1,2,3,4,5].my_select { |num| num.odd? } # should return [1, 3, 5]
+p [1,2,3,4,5].my_select { |num| num > 4 } # should return [5]
 p test_array2.my_select
 
 # my_all?
@@ -71,6 +74,10 @@ p [1, 1].my_all?(1) # true
 p true_array.my_all? #true
 
 p words.my_all?(/d/) #true
+
+p %w[ant bear cat].my_all?(/t/) # should return false
+
+p %w[ant tiger cat].my_all?(/t/) # should return true
 
 p "======================="
 

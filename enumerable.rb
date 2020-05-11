@@ -42,7 +42,7 @@ module Enumerable
     else
       result = array_enum.to_enum :select
     end
-    !result.is_a?(Enumerator) ? array_enum : result
+    !result.is_a?(Enumerator) ? res_array : result
   end
 
   def my_all?(*args, &block)
@@ -54,8 +54,7 @@ module Enumerable
       array_enum.my_each { |item| flag = false unless item.is_a?(args[0]) }
     elsif !args[0].nil?
       if args[0].is_a?(Regexp)
-        string_regex = array_enum.join(' ')
-        flag = false unless string_regex =~ args[0]
+        array_enum.my_each { |item| flag = false unless args[0].match(item) }
       else
         array_enum.my_each { |item| flag = false unless item == args[0] }
       end

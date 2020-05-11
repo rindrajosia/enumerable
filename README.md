@@ -14,7 +14,7 @@ The goal here is to prove that there's no magic with Ruby’s enumerable methods
 * Ruby
 
 # Live Demo
-**[Live Demo](https://repl.it/@rindrajosia/MortifiedGoldenrodAdaware)**
+**[Live Demo](https://repl.it/@rindrajosia/VibrantPepperyPrinters)**
 
 
 # Getting Started
